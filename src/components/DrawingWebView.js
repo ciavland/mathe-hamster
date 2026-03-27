@@ -95,12 +95,12 @@ var typed = '';
 var lastTap = 0;
 
 function tap(key, evt) {
-  // Prevent ghost click that follows touchstart (~300ms later)
+  // preventDefault blockt den Ghost-Click der ~300ms nach touchstart käme
   if (evt) { evt.preventDefault(); evt.stopPropagation(); }
 
-  // Hard debounce: ignore anything within 350ms of last tap
+  // Kleines Debounce nur gegen physisches Doppeltippen (nicht gegen Browser-Events)
   var now = Date.now();
-  if (now - lastTap < 350) return;
+  if (now - lastTap < 80) return;
   lastTap = now;
 
   // Ripple
