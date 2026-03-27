@@ -22,6 +22,18 @@
       },
       "package": "com.mathestar.app"
     },
-    "plugins": []
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/8bf53e05-10c4-4660-804b-8d172f32459b"
+    },
+    "plugins": [],
+    "extra": {
+      "eas": {
+        "projectId": "8bf53e05-10c4-4660-804b-8d172f32459b"
+      }
+    },
+    "owner": "ciav"
   }
 }

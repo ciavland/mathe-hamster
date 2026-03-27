@@ -39,7 +39,25 @@
       "Bash(/opt/homebrew/bin/gh auth:*)",
       "Bash(git init:*)",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(/opt/homebrew/bin/gh repo:*)",
+      "Bash(/opt/homebrew/bin/node node_modules/.bin/eas --version)",
+      "Bash(/opt/homebrew/bin/node /opt/homebrew/bin/npm install -g eas-cli)",
+      "Bash(/opt/homebrew/bin/eas --version)",
+      "Bash(/opt/homebrew/bin/node /opt/homebrew/lib/node_modules/eas-cli/bin/eas --version)",
+      "Bash(npm config:*)",
+      "Bash(/opt/homebrew/bin/node -e \"console.log\\(require\\(''os''\\).homedir\\(\\)\\)\")",
+      "Read(//Users/vland/bin/**)",
+      "Read(//Users/vland/lib/node_modules/eas-cli/**)",
+      "Bash(/opt/homebrew/bin/node /opt/homebrew/bin/npm install -g eas-cli --prefix /opt/homebrew)",
+      "Bash(find /opt/homebrew/lib/node_modules/eas-cli -name *.js -path */bin/*)",
+      "Bash(/opt/homebrew/bin/node /opt/homebrew/bin/eas --version)",
+      "Bash(/opt/homebrew/bin/node /opt/homebrew/bin/eas login)",
+      "Bash(/opt/homebrew/bin/node /opt/homebrew/bin/eas login --help)",
+      "Bash(/opt/homebrew/bin/node /opt/homebrew/bin/eas login --browser)",
+      "Bash(/opt/homebrew/bin/node /opt/homebrew/bin/eas init)",
+      "Bash(/opt/homebrew/bin/node /opt/homebrew/bin/eas init --force)",
+      "Bash(/opt/homebrew/bin/node /opt/homebrew/bin/npm install expo-updates)"
     ]
   }
 }
