@@ -1,14 +1,43 @@
 /**
- * Generiert eine zufällige Multiplikationsaufgabe.
- * @param {number}   maxFactor      – Maximaler Faktor (1..maxFactor)
- * @param {number[]} [allowedFactors] – Falls angegeben, werden Faktoren nur aus dieser Liste gewählt
+ * Fisher-Yates shuffle (in-place, returns array).
+ */
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+/**
+ * Erzeugt ein gemischtes Deck aller möglichen Aufgaben.
+ * Jede Kombination (a×b) kommt genau einmal vor.
+ * @param {number}   maxFactor
+ * @param {number[]} [allowedFactors]
+ */
+export function buildProblemDeck(maxFactor, allowedFactors) {
+  const factors = allowedFactors
+    ? allowedFactors
+    : Array.from({ length: maxFactor }, (_, i) => i + 1);
+
+  const deck = [];
+  for (const a of factors) {
+    for (const b of factors) {
+      deck.push({ a, b, answer: a * b });
+    }
+  }
+  return shuffle(deck);
+}
+
+/**
+ * Generiert eine einzelne zufällige Aufgabe (Fallback / Praxis-Modus).
  */
 export function generateProblem(maxFactor, allowedFactors) {
-  const pick = allowedFactors
-    ? () => allowedFactors[Math.floor(Math.random() * allowedFactors.length)]
-    : () => Math.floor(Math.random() * maxFactor) + 1;
-  const a = pick();
-  const b = pick();
+  const factors = allowedFactors
+    ? allowedFactors
+    : Array.from({ length: maxFactor }, (_, i) => i + 1);
+  const a = factors[Math.floor(Math.random() * factors.length)];
+  const b = factors[Math.floor(Math.random() * factors.length)];
   return { a, b, answer: a * b };
 }
 

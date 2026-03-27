@@ -21,7 +21,7 @@ import * as Haptics from 'expo-haptics';
 
 import DrawingWebView from '../components/DrawingWebView';
 import Mascot from '../components/Mascot';
-import { generateProblem } from '../utils/gameLogic';
+import { buildProblemDeck } from '../utils/gameLogic';
 import { playSound } from '../utils/sounds';
 import { COLORS } from '../utils/theme';
 
@@ -32,11 +32,22 @@ export default function GameScreen({ route, navigation }) {
   const isPractice = !!practiceProblems;
   const totalTime = isPractice ? 999 : difficulty.timeSeconds; // Übungsmodus: kein echtes Zeitlimit
 
+  // ── Shuffled-Deck für faire, nicht-wiederholende Aufgaben ──
+  const deckRef    = useRef(isPractice ? [] : buildProblemDeck(difficulty.maxFactor, difficulty.allowedFactors));
+  const deckIdxRef = useRef(0);
+
+  function drawFromDeck() {
+    if (deckIdxRef.current >= deckRef.current.length) {
+      // Deck erschöpft → neu mischen
+      deckRef.current  = buildProblemDeck(difficulty.maxFactor, difficulty.allowedFactors);
+      deckIdxRef.current = 0;
+    }
+    return deckRef.current[deckIdxRef.current++];
+  }
+
   // ── Spielzustand ──
   const [problem, setProblem] = useState(() =>
-    isPractice
-      ? practiceProblems[0]
-      : generateProblem(difficulty.maxFactor, difficulty.allowedFactors),
+    isPractice ? practiceProblems[0] : drawFromDeck(),
   );
   const [timeLeft, setTimeLeft]       = useState(isPractice ? 0 : totalTime);
   const [feedbackType, setFeedbackType] = useState(null);
@@ -121,7 +132,7 @@ export default function GameScreen({ route, navigation }) {
       }
       next = practiceProblems[practiceIdxRef.current];
     } else {
-      next = generateProblem(difficulty.maxFactor, difficulty.allowedFactors);
+      next = drawFromDeck();
     }
 
     setProblem(next);
@@ -177,6 +188,13 @@ export default function GameScreen({ route, navigation }) {
     };
     statsRef.current = updated;
     setStatsDisplay({ ...updated });
+
+    // Falsche Aufgabe 2–5 Slots später wieder einreihen
+    if (!correct && !isPractice) {
+      const offset  = 2 + Math.floor(Math.random() * 4);
+      const insertAt = Math.min(deckIdxRef.current + offset, deckRef.current.length);
+      deckRef.current.splice(insertAt, 0, { ...problem });
+    }
 
     // Sound
     if (correct) {

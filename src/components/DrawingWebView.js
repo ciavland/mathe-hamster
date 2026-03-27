@@ -76,18 +76,18 @@ body{
 <div id="display" class="empty">—</div>
 
 <div id="pad">
-  <button class="key" ontouchstart="tap('1',event)" onclick="tap('1',event)">1</button>
-  <button class="key" ontouchstart="tap('2',event)" onclick="tap('2',event)">2</button>
-  <button class="key" ontouchstart="tap('3',event)" onclick="tap('3',event)">3</button>
-  <button class="key" ontouchstart="tap('4',event)" onclick="tap('4',event)">4</button>
-  <button class="key" ontouchstart="tap('5',event)" onclick="tap('5',event)">5</button>
-  <button class="key" ontouchstart="tap('6',event)" onclick="tap('6',event)">6</button>
-  <button class="key" ontouchstart="tap('7',event)" onclick="tap('7',event)">7</button>
-  <button class="key" ontouchstart="tap('8',event)" onclick="tap('8',event)">8</button>
-  <button class="key" ontouchstart="tap('9',event)" onclick="tap('9',event)">9</button>
-  <button class="key key-del" ontouchstart="tap('del',event)" onclick="tap('del',event)">⌫</button>
-  <button class="key" ontouchstart="tap('0',event)" onclick="tap('0',event)">0</button>
-  <button class="key key-ok" ontouchstart="tap('ok',event)" onclick="tap('ok',event)">✓</button>
+  <button class="key" ontouchstart="tap('1',event)">1</button>
+  <button class="key" ontouchstart="tap('2',event)">2</button>
+  <button class="key" ontouchstart="tap('3',event)">3</button>
+  <button class="key" ontouchstart="tap('4',event)">4</button>
+  <button class="key" ontouchstart="tap('5',event)">5</button>
+  <button class="key" ontouchstart="tap('6',event)">6</button>
+  <button class="key" ontouchstart="tap('7',event)">7</button>
+  <button class="key" ontouchstart="tap('8',event)">8</button>
+  <button class="key" ontouchstart="tap('9',event)">9</button>
+  <button class="key key-del" ontouchstart="tap('del',event)">⌫</button>
+  <button class="key" ontouchstart="tap('0',event)">0</button>
+  <button class="key key-ok" ontouchstart="tap('ok',event)">✓</button>
 </div>
 
 <script>
@@ -95,9 +95,12 @@ var typed = '';
 var lastTap = 0;
 
 function tap(key, evt) {
-  // Prevent double-fire from touch+click
+  // Prevent ghost click that follows touchstart (~300ms later)
+  if (evt) { evt.preventDefault(); evt.stopPropagation(); }
+
+  // Hard debounce: ignore anything within 350ms of last tap
   var now = Date.now();
-  if (now - lastTap < 100) return;
+  if (now - lastTap < 350) return;
   lastTap = now;
 
   // Ripple
