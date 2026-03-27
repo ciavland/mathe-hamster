@@ -1,0 +1,23 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "expo-start",
+      "runtimeExecutable": "/opt/homebrew/bin/node",
+      "runtimeArgs": ["node_modules/.bin/expo", "start"],
+      "port": 8081
+    },
+    {
+      "name": "expo-android",
+      "runtimeExecutable": "/opt/homebrew/bin/node",
+      "runtimeArgs": ["node_modules/.bin/expo", "start", "--android"],
+      "port": 8081
+    },
+    {
+      "name": "expo-ios",
+      "runtimeExecutable": "/bin/sh",
+      "runtimeArgs": ["-c", "ulimit -n 65536 && /opt/homebrew/bin/node /Users/vland/projects/kawa/node_modules/.bin/expo start --no-dev"],
+      "port": 8081
+    }
+  ]
+}

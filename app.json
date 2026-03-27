@@ -1,0 +1,27 @@
+{
+  "expo": {
+    "name": "Mathe Hamster",
+    "slug": "mathe-hamster",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#6C3CE1"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.mathestar.app"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#6C3CE1"
+      },
+      "package": "com.mathestar.app"
+    },
+    "plugins": []
+  }
+}
