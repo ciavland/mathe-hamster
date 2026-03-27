@@ -15,16 +15,19 @@ function shuffle(arr) {
  * @param {number}   maxFactor
  * @param {number[]} [allowedFactors]
  */
+// Voller Bereich für den Partner (immer 1–10)
+const FULL_RANGE = Array.from({ length: 10 }, (_, i) => i + 1);
+
 export function buildProblemDeck(maxFactor, allowedFactors) {
   const deck = [];
 
   if (allowedFactors) {
-    // Schlüssel-Modus: eine Seite = Schlüssel-Reihe, andere Seite = 1..maxFactor
-    // → 4 × 10 = 40 Aufgaben, zufällig ob Schlüsselzahl links oder rechts steht
-    const fullRange = Array.from({ length: maxFactor }, (_, i) => i + 1);
+    // Reihen-Modus (Schlüssel, Leicht, …):
+    //   eine Seite = Reihen-Faktor, andere Seite = voller Bereich 1–10
+    //   → allowedFactors.length × 10 Aufgaben
     for (const key of allowedFactors) {
-      for (const other of fullRange) {
-        // Zufällig tauschen damit nicht immer "2 × 7" sondern auch "7 × 2" vorkommt
+      for (const other of FULL_RANGE) {
+        // Zufällig tauschen: mal "2 × 7", mal "7 × 2"
         if (Math.random() < 0.5) {
           deck.push({ a: key,   b: other, answer: key * other });
         } else {
@@ -33,7 +36,7 @@ export function buildProblemDeck(maxFactor, allowedFactors) {
       }
     }
   } else {
-    // Normal-Modus: beide Seiten 1..maxFactor → maxFactor² Aufgaben
+    // Voll-Modus (Mittel, Schwer): beide Seiten 1..maxFactor → maxFactor² Aufgaben
     const factors = Array.from({ length: maxFactor }, (_, i) => i + 1);
     for (const a of factors) {
       for (const b of factors) {

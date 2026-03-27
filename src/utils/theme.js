@@ -32,6 +32,7 @@ export const DIFFICULTY = {
     label: 'Leicht',
     emoji: '🌟',
     description: '1er bis 5er Reihe',
+    allowedFactors: [1, 2, 3, 4, 5],
     maxFactor: 5,
     timeSeconds: 60,
     color: '#4CAF50',
